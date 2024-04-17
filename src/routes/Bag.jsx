@@ -1,31 +1,29 @@
 import React from "react";
 import BagSummary from "../Components/BagSummary";
 import BagCard from "../Components/BagCard";
-const Items = [
-  {
-    id: "001",
-    image: "images/1.jpg",
-    company: "Carlton London",
-    item_name: "Rhodium-Plated CZ Floral Studs",
-    original_price: 1045,
-    current_price: 606,
-    discount_percentage: 42,
-    return_period: 14,
-    delivery_date: "10 Oct 2023",
-    rating: { stars: 4.5, count: 1400 },
-  },
-];
+import { useSelector } from "react-redux";
+
 const Bag = () => {
+  const items = useSelector((store) => store.item);
+  const bag = useSelector((store) => store.bag);
+
+  const finalItems = items.filter((item) => {
+    const itemIndex = bag.indexOf(item.id);
+    return itemIndex >= 0;
+  });
+
   return (
     <div className=" flex justify-center items-center mx-8  ">
-    <div className="  flex">  <div className="a">
-        <BagCard Values={Items} />
-        
+      <div className="  flex">
+        <div className="a">
+          {finalItems.map((items) => (
+            <BagCard item={items} />
+          ))}
+        </div>
+        <div className=" flex flex-row">
+            <BagSummary />
+        </div>
       </div>
-      <div className=" flex flex-row">
-        <BagSummary />
-        
-      </div></div>
     </div>
   );
 };

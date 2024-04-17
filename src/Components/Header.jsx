@@ -2,11 +2,12 @@ import React from "react";
 import { BsPerson } from "react-icons/bs";
 import { CiHeart } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
-
 import { IoBagHandleOutline } from "react-icons/io5";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  const bag = useSelector((store) => store.bag);
   return (
     <div className=" font-semibold z-50 text-sm shadow-sm  shadow-gray-200  flex  items-center h-full px-7 py-5 flex-row gap-9">
       <Link to="/">
@@ -65,6 +66,9 @@ const Header = () => {
           <div className=" flex flex-col justify-center items-center">
             <IoBagHandleOutline size={21} />
             <p>Bag</p>
+            <diV className=" top-[6px] right-[42px] absolute border  px-2  rounded-full bg-red-600 text-white text-[10px] font-[10]  ">
+              {bag.length}
+            </diV>
           </div>
         </Link>
       </div>
